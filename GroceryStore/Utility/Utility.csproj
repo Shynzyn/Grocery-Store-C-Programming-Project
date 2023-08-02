@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\GroceryStore.Constants\GroceryStore.Constants.csproj" />
-    <ProjectReference Include="..\Utility\Utility.csproj" />
-  </ItemGroup>
-
 </Project>

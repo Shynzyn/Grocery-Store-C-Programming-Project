@@ -13,11 +13,21 @@ namespace GroceryStore.Models
         public ProductCategories.Category Category { get; set; }
         public double Price { get; set; }
 
-        public Product(string name, ProductCategories.Category category,  double price)
+        public int Amount { get; set; }
+
+        public Product(string name, ProductCategories.Category category,  double price, int amount=1)
         {
             Name = name;
             Category = category;
             Price = price;
+            Amount = amount;
+        }
+
+        public string GetProductInfo()
+        {
+            string categoryName = GroceryStore.Constants.ProductCategories.GetCategoryName(Category);
+            double result = Price * Amount;            
+            return $"({categoryName}) {Name} ${Price.ToString("0.##")} - {Amount}x - ${result.ToString("0.##")}";
         }
     }
 }
