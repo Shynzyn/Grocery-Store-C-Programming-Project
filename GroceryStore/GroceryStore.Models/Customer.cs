@@ -121,10 +121,11 @@ namespace GroceryStore.Models
             {
                 Array.Resize(ref Cart, cartCount + 1);
             }
-            product.Amount = Amount;
-            Cart[cartCount] = product;
+
+            Product newProduct = new Product(product.Name, product.Category, product.Price, Amount); //making new product so it is possible to have seperate ammounts for same product.
+            Cart[cartCount] = newProduct;
             cartCount++;
-            Console.WriteLine($"Product: {product.GetProductInfo()} was added to {FullName}'s cart.");
+            Console.WriteLine($"Product: {newProduct.GetProductInfo()} was added to {FullName}'s cart.");
         }
 
     }
