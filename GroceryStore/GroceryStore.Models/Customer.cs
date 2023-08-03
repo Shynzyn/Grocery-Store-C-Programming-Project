@@ -121,9 +121,10 @@ namespace GroceryStore.Models
             {
                 Array.Resize(ref Cart, cartCount + 1);
             }
+            product.Amount = Amount;
             Cart[cartCount] = product;
             cartCount++;
-            Console.WriteLine($"Product: {product.GetProductInfo()} x {Amount} was added to {FullName}'s cart.");
+            Console.WriteLine($"Product: {product.GetProductInfo()} was added to {FullName}'s cart.");
         }
 
     }
