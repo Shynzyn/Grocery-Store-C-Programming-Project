@@ -11,64 +11,51 @@ namespace GroceryStore.Models
 {
     public class Customer
     {
+        private char _sex;
+        private float _personalDiscount;
+        private int _cartCount = 0;
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }
-
-        private char sex;
         public char Sex
         {
-            get { return sex; }
-            set { sex = char.ToUpper(value); }
+            get => _sex;
+            set => _sex = char.ToUpper(value);
         }
         public bool hasDiscountCard { get; set; }
-
-        private float personalDiscount;
-
         public float PersonalDiscount
         {
-            get
-            {
-                return (hasDiscountCard) ? personalDiscount : 0f;
-            }
-            set
-            {   
-                personalDiscount = value;
-            }
+            get => (hasDiscountCard) ? _personalDiscount : 0f;
+            set => _personalDiscount = value;
         }
         public string FullName
         {
-            get
-            {
-                return $"{FirstName} {LastName}";
-            }
+            get => $"{FirstName} {LastName}";
         }
         public Product[] Cart = new Product[0];
 
-        private int cartCount = 0;
-
-        public Customer(string FirstName, string LastName, int Age, char Sex, bool hasDiscountCard, float personalDiscount=0.05f)
+        public Customer(string firstName, string lastName, int age, char sex, bool hasDiscountCard, float personalDiscount = 0.05f)
         {
-            this.FirstName = FirstName;
-            this.LastName = LastName;
-            this.Age = Age;
-            this.Sex = Sex;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.Age = age;
+            this.Sex = sex;
             this.hasDiscountCard = hasDiscountCard;
             this.PersonalDiscount = personalDiscount;
         }
 
-        public void ChangeCustomerName(string customerName, string customerLastName)
+        public void ChangeCustomerName(string firstName, string lastName)
         {
-            this.FirstName = customerName;
-            this.LastName = customerLastName;
+            this.FirstName = firstName;
+            this.LastName = lastName;
             Console.WriteLine($"Customer name changed to: {FullName}");
         }
 
-        public void UpdateDiscountCard(bool hasDiscountCard, float personalDiscount=0.05f)
+        public void UpdateDiscountCard(bool hasDiscountCard, float personalDiscount = 0.05f)
         {
             this.hasDiscountCard = hasDiscountCard;
             this.PersonalDiscount = personalDiscount;
-            if ( this.hasDiscountCard)
+            if (this.hasDiscountCard)
             {
                 Console.WriteLine($"Updated: Customer [{FullName}] has card - Discount ammount: {this.PersonalDiscount}");
             }
@@ -79,25 +66,20 @@ namespace GroceryStore.Models
         }
 
         public string GetCustomerInfo()
-        {   
-        
+        {
+
             string card = (hasDiscountCard) ? "YES" : "NO";
             string header = "--------------------------------------------------------------------------------------------------------------------------------------------------\n";
 
             if (Cart.Length == 0)
             {
                 string emptyCart = "EMPTY";
-                string info = $"| {util.CenterAlign(FullName, 30)} | {util.CenterAlign(Age.ToString(), 3)} | {util.CenterAlign(Sex.ToString(), 5)} | {util.CenterAlign(card, 17)} | {util.CenterAlign((PersonalDiscount * 100).ToString() + "%", 17)} | {util.CenterAlign(emptyCart, 55)} |";
-                return header + info;
-            }
-            else if (Cart.Length == 1)
-            {
-                string cartString = Cart[0].GetProductInfo();
-                string info = $"| {util.CenterAlign(FullName, 30)} | {util.CenterAlign(Age.ToString(), 3)} | {util.CenterAlign(Sex.ToString(), 5)} | {util.CenterAlign(card, 17)} | {util.CenterAlign((PersonalDiscount * 100).ToString() + "%", 17)} | {cartString.PadRight(55)} |";
+                string info = $"| {util.CenterAlign(FullName, 30)} | {util.CenterAlign(Age.ToString(), 3)} | {util.CenterAlign(Sex.ToString(), 5)} |" +
+                    $" {util.CenterAlign(card, 17)} | {util.CenterAlign((PersonalDiscount * 100).ToString() + "%", 17)} | {util.CenterAlign(emptyCart, 55)} |";
                 return header + info;
             }
             else
-            {   
+            {
                 string emptyLine = $"|{util.CenterAlign("", 32)}|{util.CenterAlign("", 5)}|{util.CenterAlign("", 7)}|{util.CenterAlign("", 19)}|{util.CenterAlign("", 19)}";
                 string cartStrings = "";
                 double sum = 0;
@@ -109,22 +91,24 @@ namespace GroceryStore.Models
                     string cartElementString = $"|{cartElement.GetProductInfo().PadRight(57)}|\n";
                     cartStrings += cartElementString + emptyLine;
                 }
-                string info = $"| {util.CenterAlign(FullName, 30)} | {util.CenterAlign(Age.ToString(), 3)} | {util.CenterAlign(Sex.ToString(), 5)} | {util.CenterAlign(card, 17)} | {util.CenterAlign((PersonalDiscount * 100).ToString() + "%", 17)} {util.CenterAlign(cartStrings, 50)} |";
+                string info = $"| {util.CenterAlign(FullName, 30)} | {util.CenterAlign(Age.ToString(), 3)} | {util.CenterAlign(Sex.ToString(), 5)} |" +
+                    $" {util.CenterAlign(card, 17)} | {util.CenterAlign((PersonalDiscount * 100).ToString() + "%", 17)} {util.CenterAlign(cartStrings, 50)} |";
                 string total = $"TOTAL = ${sum.ToString("0.00")} - DISCOUNT - {PersonalDiscount * 100}% - ${(sum - (sum * PersonalDiscount)).ToString("0.00")}";
-                string totalFormater = total.PadRight(56)+"|";
+                string totalFormater = total.PadRight(56) + "|";
                 return header + info + totalFormater;
             }
         }
-        public void AddProductToCart(Product product, int Amount=1)
+
+        public void AddProductToCart(Product product, int amount = 1)
         {
-            if (Cart.Length <= cartCount)
+            if (Cart.Length <= _cartCount)
             {
-                Array.Resize(ref Cart, cartCount + 1);
+                Array.Resize(ref Cart, _cartCount + 1);
             }
 
-            Product newProduct = new Product(product.Name, product.Category, product.Price, Amount); //making new product so it is possible to have seperate ammounts for same product.
-            Cart[cartCount] = newProduct;
-            cartCount++;
+            Product newProduct = new Product(product.Name, product.Category, product.Price, amount);
+            Cart[_cartCount] = newProduct;
+            _cartCount++;
             Console.WriteLine($"Product: {newProduct.GetProductInfo()} was added to {FullName}'s cart.");
         }
 

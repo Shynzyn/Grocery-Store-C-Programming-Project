@@ -7,35 +7,36 @@ using System.Threading.Tasks;
 using util = Utility.Utility;
 
 namespace GroceryStore.Models
-   
+
 {
     public class Store
     {
+        private int _customerCount = 0;
         public Customer[] Customers = new Customer[0];
-        private int customerCount = 0;
         public Product[] Products = new Product[100];
-        public void AddCustomer(string firstName, string lastName, int age, char sex, bool hasDiscountCard, float personalDiscount= 0.05f)
+
+        public void AddCustomer(string firstName, string lastName, int age, char sex, bool hasDiscountCard, float personalDiscount = 0.05f)
         {
-            if (customerCount >= Customers.Length)
+            if (_customerCount >= Customers.Length)
             {
-                Array.Resize(ref Customers, customerCount+1);
+                Array.Resize(ref Customers, _customerCount + 1);
             }
             Customer newCustomer = new Customer(firstName, lastName, age, sex, hasDiscountCard, personalDiscount);
-            Customers[customerCount] = newCustomer;
-            customerCount++;
+            Customers[_customerCount] = newCustomer;
+            _customerCount++;
         }
 
         public void AddCustomer(Customer customer)
         {
-            if (customerCount >= Customers.Length)
+            if (_customerCount >= Customers.Length)
             {
-                Array.Resize(ref Customers, customerCount + 1);
+                Array.Resize(ref Customers, _customerCount + 1);
             }
 
-            Customers[customerCount] = customer;
-            customerCount++;
+            Customers[_customerCount] = customer;
+            _customerCount++;
         }
-        
+
         public void PrintCustomersInformation()
         {
             if (Customers.Length <= 0)
@@ -44,8 +45,10 @@ namespace GroceryStore.Models
             }
             else
             {
-                string header = "--------------------------------------------------------------------------------------------------------------------------------------------------\n";
-                string headerInfo = $"| {util.CenterAlign("Full Name", 30)} | {util.CenterAlign("Age", 3)} | {util.CenterAlign("Sex", 5)} | {util.CenterAlign("Has Discount Card", 5)} | {util.CenterAlign("Personal Discount", 8)} | {util.CenterAlign("Cart", 55)} |\n";
+                string header = "----------------------------------------------------------------------------------------" +
+                    "----------------------------------------------------------\n";
+                string headerInfo = $"| {util.CenterAlign("Full Name", 30)} | {util.CenterAlign("Age", 3)} | {util.CenterAlign("Sex", 5)} |" +
+                    $" {util.CenterAlign("Has Discount Card", 5)} | {util.CenterAlign("Personal Discount", 8)} | {util.CenterAlign("Cart", 55)} |\n";
 
                 string customerString = "";
 
@@ -55,8 +58,6 @@ namespace GroceryStore.Models
                 }
                 Console.WriteLine(header + headerInfo + customerString);
             }
-
-
         }
     }
 }

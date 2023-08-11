@@ -15,7 +15,7 @@ namespace GroceryStore.Models
 
         public int Amount { get; set; }
 
-        public Product(string name, ProductCategories.Category category,  double price, int amount=1)
+        public Product(string name, ProductCategories.Category category, double price, int amount = 1)
         {
             Name = name;
             Category = category;
@@ -26,7 +26,7 @@ namespace GroceryStore.Models
         public string GetProductInfo()
         {
             string categoryName = GroceryStore.Constants.ProductCategories.GetCategoryName(Category);
-            double result = Price * Amount;            
+            double result = Price * Amount;
             return $"({categoryName}) {Name} ${Price.ToString("0.##")} - {Amount}x - ${result.ToString("0.##")}";
         }
     }
