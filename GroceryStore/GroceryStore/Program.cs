@@ -11,10 +11,10 @@ Customer cust5 = new Customer("Peter", "Parker", 9, 'm', false);
 
 // Products
 
-Product prod1 = new Product("Coca-Cola", ProductCategories.Category.Drinks, 1.12f);
-Product prod2 = new Product("Tomatoes", ProductCategories.Category.FruitsAndVegetables, 0.99f);
-Product prod3 = new Product("Lay's Cheese", ProductCategories.Category.Snacks, 2.49f);
-Product prod4 = new Product("Norway Herring", ProductCategories.Category.Fish, 4.55f);
+Product prod1 = new Product("Coca-Cola", ProductCategories.Drinks, 1.12f);
+Product prod2 = new Product("Tomatoes", ProductCategories.FruitsAndVegetables, 0.99f);
+Product prod3 = new Product("Lay's Cheese", ProductCategories.Snacks, 2.49f);
+Product prod4 = new Product("Norway Herring", ProductCategories.Fish, 4.55f);
 
 cust4.UpdateDiscountCard(false);
 cust1.ChangeCustomerName("John", "Claus");
