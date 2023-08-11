@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,32 +9,10 @@ namespace GroceryStore.Constants
 {
     public class ProductCategories
     {
-        public enum Category
-        {
-            FruitsAndVegetables,
-            Meat,
-            Fish,
-            Snacks,
-            Drinks
-        }
-
-        public static string GetCategoryName(Category category)
-        {
-            switch (category)
-            {
-                case Category.FruitsAndVegetables:
-                    return "Fruits & Vegetables";
-                case Category.Meat:
-                    return "Meat";
-                case Category.Fish:
-                    return "Fish";
-                case Category.Snacks:
-                    return "Snacks";
-                case Category.Drinks:
-                    return "Drinks";
-                default:
-                    return "Unknown Category";
-            }
-        }
+        public const string FruitsAndVegetables = "Fruits & Vegetables";
+        public const string Meat = "Meat";
+        public const string Fish = "Fish";
+        public const string Snacks = "Snacks";
+        public const string Drinks = "Drinks";
     }
 }
