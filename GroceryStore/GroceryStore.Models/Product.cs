@@ -7,14 +7,22 @@ using GroceryStore.Constants;
 
 namespace GroceryStore.Models
 {
-    public class Product
+    public abstract class Product
     {
+        protected DateTime _expirationDate = DateTime.Now;
         public string Name { get; set; }
-        public string Category { get; set; }
+        public string Category { get; protected set; }
         public double Price { get; set; }
         public int Amount { get; set; }
+        public abstract int ExpirationDays { get; protected set; }
 
-        public Product(string name, string category, double price, int amount = 1)
+        public DateTime ExpirationDate
+        {
+            get => _expirationDate;
+            protected set => _expirationDate.AddDays(ExpirationDays);
+        }
+
+        protected Product(string name, string category, double price, int amount = 1)
         {
             Name = name;
             Category = category;
@@ -22,10 +30,11 @@ namespace GroceryStore.Models
             Amount = amount;
         }
 
-        public string GetProductInfo()
+        public override string ToString()
         {
             double result = Price * Amount;
-            return $"({Category}) {Name} ${Price.ToString("0.##")} - {Amount}x - ${result.ToString("0.##")}";
+            return
+                $"({Category}) {Name} ${Price.ToString("0.##")}, Exp. {ExpirationDate.ToString("dd.MM.yy")} - {Amount}x - ${result.ToString("0.##")}";
         }
     }
 }

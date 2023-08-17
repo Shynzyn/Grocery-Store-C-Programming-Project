@@ -15,12 +15,14 @@ namespace GroceryStore.Models
         public Customer[] Customers = new Customer[0];
         public Product[] Products = new Product[100];
 
-        public void AddCustomer(string firstName, string lastName, int age, char sex, bool hasDiscountCard, float personalDiscount = 0.05f)
+        public void AddCustomer(string firstName, string lastName, int age, char sex, bool hasDiscountCard,
+            float personalDiscount = 0.05f)
         {
             if (_customerCount >= Customers.Length)
             {
                 Array.Resize(ref Customers, _customerCount + 1);
             }
+
             Customer newCustomer = new Customer(firstName, lastName, age, sex, hasDiscountCard, personalDiscount);
             Customers[_customerCount] = newCustomer;
             _customerCount++;
@@ -45,17 +47,18 @@ namespace GroceryStore.Models
             }
             else
             {
-                string header = "----------------------------------------------------------------------------------------" +
-                    "----------------------------------------------------------\n";
-                string headerInfo = $"| {util.CenterAlign("Full Name", 30)} | {util.CenterAlign("Age", 3)} | {util.CenterAlign("Sex", 5)} |" +
-                    $" {util.CenterAlign("Has Discount Card", 5)} | {util.CenterAlign("Personal Discount", 8)} | {util.CenterAlign("Cart", 55)} |\n";
+                string header = new string('-', 170) + "\n";
+                string headerInfo =
+                    $"| {util.CenterAlign("Full Name", 30)} | {util.CenterAlign("Age", 3)} | {util.CenterAlign("Sex", 5)} |" +
+                    $" {util.CenterAlign("Has Discount Card", 5)} | {util.CenterAlign("Personal Discount", 8)} | {util.CenterAlign("Cart", 79)} |\n";
 
                 string customerString = "";
 
                 foreach (var customer in Customers)
                 {
-                    customerString += customer.GetCustomerInfo() + "\n";
+                    customerString += customer.ToString() + "\n";
                 }
+
                 Console.WriteLine(header + headerInfo + customerString);
             }
         }
