@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using util = Utility.Utility;
+using util = GroceryStore.Utils.Utility;
 
 namespace GroceryStore.Models
 {
@@ -32,12 +32,9 @@ namespace GroceryStore.Models
             set => _personalDiscount = value;
         }
 
-        public string FullName
-        {
-            get => $"{FirstName} {LastName}";
-        }
+        public string FullName => $"{FirstName} {LastName}";
 
-        public Product[] Cart = new Product[0];
+        public ProductWrapper[] Cart = new ProductWrapper[0];
 
         public Customer(string firstName, string lastName, int age, char sex, bool hasDiscountCard,
             float personalDiscount = 0.05f)
@@ -77,7 +74,7 @@ namespace GroceryStore.Models
             string card = (hasDiscountCard) ? "YES" : "NO";
             string header = new string('-', 170) + "\n";
 
-            if (Cart.Length == 0)
+            if (Cart.Length <= 0)
             {
                 string emptyCart = "EMPTY";
                 string info =
@@ -94,7 +91,7 @@ namespace GroceryStore.Models
 
                 foreach (var cartElement in Cart)
                 {
-                    double elementTotalPrice = cartElement.Price * cartElement.Amount;
+                    double elementTotalPrice = cartElement.Product.Price * cartElement.Amount;
                     sum += elementTotalPrice;
                     string cartElementString = $"|{cartElement.ToString().PadRight(81)}|\n";
                     cartStrings += cartElementString + emptyLine;
@@ -110,17 +107,14 @@ namespace GroceryStore.Models
             }
         }
 
-        public void AddProductToCart(Product product, int amount = 1)
+        public void AddProductToCart(Product product, int amount)
         {
             if (Cart.Length <= _cartCount)
             {
                 Array.Resize(ref Cart, _cartCount + 1);
             }
 
-            //var newProduct = new Product(product.Name, product.Category, product.Price, product.ExpirationDays,
-            //    amount);
-            product.Amount = amount;
-            Cart[_cartCount] = product;
+            Cart[_cartCount] = new ProductWrapper(product, amount);
             _cartCount++;
             Console.WriteLine($"Product: {product} was added to {FullName}'s cart.");
         }

@@ -13,7 +13,6 @@ namespace GroceryStore.Models
         public string Name { get; set; }
         public string Category { get; protected set; }
         public double Price { get; set; }
-        public int Amount { get; set; }
         public abstract int ExpirationDays { get; protected set; }
 
         public DateTime ExpirationDate
@@ -22,19 +21,17 @@ namespace GroceryStore.Models
             protected set => _expirationDate.AddDays(ExpirationDays);
         }
 
-        protected Product(string name, string category, double price, int amount)
+        protected Product(string name, string category, double price)
         {
             Name = name;
             Category = category;
             Price = price;
-            Amount = amount;
         }
 
         public override string ToString()
         {
-            double result = Price * Amount;
             return
-                $"({Category}) {Name} ${Price.ToString("0.##")}, Exp. {ExpirationDate.ToString("dd.MM.yy")} - {Amount}x - ${result.ToString("0.##")}";
+                $"({Category}) {Name} ${Price.ToString("0.##")}, Exp. {ExpirationDate.ToString("dd.MM.yy")}";
         }
     }
 }

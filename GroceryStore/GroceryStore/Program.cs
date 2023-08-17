@@ -12,9 +12,9 @@ Customer cust5 = new Customer("Peter", "Parker", 9, 'm', false);
 // Products
 
 Product prod1 = new Drink("Coca-Cola", ProductCategories.Drinks, 1.12f, 1);
-Product prod2 = new FruitsAndVegetables("Tomatoes", ProductCategories.FruitsAndVegetables, 0.99f, 1);
-Product prod3 = new Snacks("Lay's Cheese", ProductCategories.Snacks, 2.49f, 1);
-Product prod4 = new Fish("Norway Herring", ProductCategories.Fish, FishType.Ocean, 4.55f, 1);
+Product prod2 = new FruitsAndVegetables("Tomatoes", ProductCategories.FruitsAndVegetables, 0.99f);
+Product prod3 = new Snacks("Lay's Cheese", ProductCategories.Snacks, 2.49f);
+Product prod4 = new Fish("Norway Herring", ProductCategories.Fish, FishType.Ocean, 4.55f);
 
 //cust4.UpdateDiscountCard(false);
 //cust1.ChangeCustomerName("John", "Claus");
