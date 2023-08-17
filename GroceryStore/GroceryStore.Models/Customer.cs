@@ -119,6 +119,7 @@ namespace GroceryStore.Models
 
             //var newProduct = new Product(product.Name, product.Category, product.Price, product.ExpirationDays,
             //    amount);
+            product.Amount = amount;
             Cart[_cartCount] = product;
             _cartCount++;
             Console.WriteLine($"Product: {product} was added to {FullName}'s cart.");

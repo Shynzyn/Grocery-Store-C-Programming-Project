@@ -22,7 +22,7 @@ namespace GroceryStore.Models
             protected set => _expirationDate.AddDays(ExpirationDays);
         }
 
-        protected Product(string name, string category, double price, int amount = 1)
+        protected Product(string name, string category, double price, int amount)
         {
             Name = name;
             Category = category;

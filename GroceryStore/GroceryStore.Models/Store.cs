@@ -12,9 +12,7 @@ namespace GroceryStore.Models
     public class Store
     {
         private int _customerCount = 0;
-        public Customer[] Customers = new Customer[0];
-        public Product[] Products = new Product[100];
-
+        public Customer[] Customers = new Customer[5];
         public void AddCustomer(string firstName, string lastName, int age, char sex, bool hasDiscountCard,
             float personalDiscount = 0.05f)
         {
@@ -32,7 +30,7 @@ namespace GroceryStore.Models
         {
             if (_customerCount >= Customers.Length)
             {
-                Array.Resize(ref Customers, _customerCount + 1);
+                Array.Resize(ref Customers, _customerCount + 5);
             }
 
             Customers[_customerCount] = customer;

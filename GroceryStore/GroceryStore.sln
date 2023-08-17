@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroceryStore.Models", "Groc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroceryStore.Constants", "GroceryStore.Constants\GroceryStore.Constants.csproj", "{40E9232E-36D0-48B2-88CE-E1805399795A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "Utility\Utility.csproj", "{85F5D5BB-FB66-470A-B1A5-61695D58E507}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroceryStore.Utils", "Utility\GroceryStore.Utils.csproj", "{85F5D5BB-FB66-470A-B1A5-61695D58E507}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
