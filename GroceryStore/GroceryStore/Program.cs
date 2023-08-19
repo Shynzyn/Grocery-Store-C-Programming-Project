@@ -33,6 +33,7 @@ store1.AddCustomer(cust2);
 //store1.Customers[0].AddProductToCart(prod2, 7);
 
 store1.Customers[1].AddProductToCart(prod1, 10);
+store1.Customers[1].AddProductToCart(prod4, 3);
 
 //store1.Customers[4].AddProductToCart(prod3, 5);
 //store1.Customers[4].AddProductToCart(prod1, 2);

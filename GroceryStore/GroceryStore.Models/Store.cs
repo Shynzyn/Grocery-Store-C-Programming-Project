@@ -76,8 +76,8 @@ namespace GroceryStore.Models
                         {
                             sum += (cartElement.Amount * cartElement.Product.Price);
                             cartString +=
-                                $" {cartElement.Product} - {cartElement.Amount:0.##}x - {cartElement.Product.Price:0.##}$ - {cartElement.Amount * cartElement.Product.Price:0.##}$";
-                            cartString = $"{cartString,-81}|\n" + emptyLine;
+                                $" {cartElement.Product} - {cartElement.Amount:0.##}x - {cartElement.Product.Price:0.##}$ - {cartElement.Amount * cartElement.Product.Price:0.##}$"
+                                    .PadRight(81) + $"|\n{emptyLine}";
                         }
 
                         string total =
