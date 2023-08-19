@@ -17,5 +17,10 @@ namespace GroceryStore.Models
             Product = product;
             Amount = amount;
         }
+
+        public override string ToString()
+        {
+            return Product.ToString();
+        }
     }
 }

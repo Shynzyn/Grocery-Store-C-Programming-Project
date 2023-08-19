@@ -28,7 +28,7 @@ store1.AddCustomer(cust2);
 //store1.AddCustomer(cust4);
 //store1.AddCustomer(cust5);
 
-store1.Customers[0].AddProductToCart(prod1, 2);
+//store1.Customers[0].AddProductToCart(prod1, 2);
 //store1.Customers[0].AddProductToCart(prod4, 1);
 //store1.Customers[0].AddProductToCart(prod2, 7);
 
@@ -36,6 +36,11 @@ store1.Customers[1].AddProductToCart(prod1, 10);
 
 //store1.Customers[4].AddProductToCart(prod3, 5);
 //store1.Customers[4].AddProductToCart(prod1, 2);
+
+var pw = new ProductWrapper(prod2, 3);
+Console.WriteLine(prod2);
+Console.WriteLine(prod3);
+Console.WriteLine(pw.ToString());
 
 store1.PrintCustomersInformation();
 
