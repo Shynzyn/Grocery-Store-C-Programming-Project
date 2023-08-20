@@ -10,7 +10,6 @@ namespace GroceryStore.Models
     {
         public Product Product { get; set; }
         public int Amount { get; set; }
-        public double TotalSum { get; set; }
 
         public ProductWrapper(Product product, int amount)
         {

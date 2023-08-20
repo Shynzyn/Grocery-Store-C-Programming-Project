@@ -79,7 +79,7 @@ namespace GroceryStore.Models
                 string emptyCart = "EMPTY";
                 string info =
                     $"| {util.CenterAlign(FullName, 30)} | {util.CenterAlign(Age.ToString(), 3)} | {util.CenterAlign(Sex.ToString(), 5)} |" +
-                    $" {util.CenterAlign(card, 17)} | {util.CenterAlign((PersonalDiscount * 100).ToString() + "%", 17)} | {util.CenterAlign(emptyCart, 79)} |";
+                    $" {util.CenterAlign(card, 17)} | {util.CenterAlign((PersonalDiscount * 100) + "%", 17)} | {util.CenterAlign(emptyCart, 79)} |";
                 return header + info;
             }
             else
@@ -93,15 +93,15 @@ namespace GroceryStore.Models
                 {
                     double elementTotalPrice = cartElement.Product.Price * cartElement.Amount;
                     sum += elementTotalPrice;
-                    string cartElementString = $"|{cartElement.ToString().PadRight(81)}|\n";
+                    string cartElementString = $"|{cartElement,-81}|\n";
                     cartStrings += cartElementString + emptyLine;
                 }
 
                 string info =
                     $"| {util.CenterAlign(FullName, 30)} | {util.CenterAlign(Age.ToString(), 3)} | {util.CenterAlign(Sex.ToString(), 5)} |" +
-                    $" {util.CenterAlign(card, 17)} | {util.CenterAlign((PersonalDiscount * 100).ToString() + "%", 17)} {util.CenterAlign(cartStrings, 50)} |";
+                    $" {util.CenterAlign(card, 17)} | {util.CenterAlign((PersonalDiscount * 100) + "%", 17)} {util.CenterAlign(cartStrings, 50)} |";
                 string total =
-                    $"TOTAL = ${sum.ToString("0.00")} - DISCOUNT - {PersonalDiscount * 100}% - ${(sum - (sum * PersonalDiscount)).ToString("0.00")}";
+                    $"TOTAL = ${sum:0.00} - DISCOUNT - {PersonalDiscount * 100}% - ${(sum - (sum * PersonalDiscount)):0.00}";
                 string totalFormater = total.PadRight(80) + "|";
                 return header + info + totalFormater;
             }

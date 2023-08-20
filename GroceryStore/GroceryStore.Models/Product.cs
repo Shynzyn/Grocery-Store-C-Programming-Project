@@ -9,29 +9,24 @@ namespace GroceryStore.Models
 {
     public abstract class Product
     {
-        protected DateTime _expirationDate = DateTime.Now;
         public string Name { get; set; }
-        public string Category { get; protected set; }
+        public string Category { get; set; }
         public double Price { get; set; }
-        public abstract int ExpirationDays { get; protected set; }
+        protected DateTime ExpirationDate { get; private set; } = DateTime.Now.AddDays(1);
+        protected int ExpirationDays { get; }
 
-        public DateTime ExpirationDate
-        {
-            get => _expirationDate;
-            protected set => _expirationDate.AddDays(ExpirationDays);
-        }
-
-        protected Product(string name, string category, double price)
+        protected Product(string name, double price, int expirationDays)
         {
             Name = name;
-            Category = category;
             Price = price;
+            ExpirationDays = expirationDays;
+            ExpirationDate = DateTime.Now.AddDays(expirationDays);
         }
 
         public override string ToString()
         {
             return
-                $"({Category}) {Name} ${Price.ToString("0.##")}, Exp. {ExpirationDate.ToString("dd.MM.yy")}";
+                $"({Category}) {Name} ${Price:0.##}, Exp. {ExpirationDate:dd.MM.yy}";
         }
     }
 }

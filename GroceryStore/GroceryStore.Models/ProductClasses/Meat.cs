@@ -1,11 +1,18 @@
-﻿namespace GroceryStore.Models.ProductClasses
+﻿using GroceryStore.Constants;
+
+namespace GroceryStore.Models.ProductClasses
 {
     public class Meat : Product
     {
-        public override int ExpirationDays { get; protected set; }
-
-        public Meat(string name, string category, double price) : base(name, category, price)
+        public Meat(string name, double price) : base(name, price, expirationDays: 2)
         {
+            Category = ProductCategories.Meat;
+        }
+
+        public override string ToString()
+        {
+            return
+                $"({Category}) {Name} ${Price:0.00}, Exp. {ExpirationDate:dd.MM.yy}";
         }
     }
 }

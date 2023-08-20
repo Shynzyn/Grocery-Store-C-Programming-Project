@@ -1,24 +1,26 @@
-﻿namespace GroceryStore.Models.ProductClasses
+﻿using GroceryStore.Constants;
+
+namespace GroceryStore.Models.ProductClasses
 {
     public class Drink : Product
     {
-        internal bool IsAlcohol { get; set; }
-        internal float Volume { get; set; }
-        public override int ExpirationDays { get; protected set; } = 30;
+        public bool IsAlcohol { get; set; }
+        public float Volume { get; set; }
 
-        public Drink(string name, string category, double price, float volume,
-            bool isAlcohol = false) :
-            base(name, category, price)
+        public Drink(string name, double price, float volume, bool isAlcohol = false) :
+            base(name, price, expirationDays: 30)
         {
-            this.Volume = volume;
+            Volume = volume;
             IsAlcohol = isAlcohol;
+            Category = ProductCategories.Fish;
         }
 
-        public new string ToString()
+
+        public override string ToString()
         {
             string alcohol = (IsAlcohol) ? "Y" : "N";
             return
-                $"({Category}) {Name} {Price}, Exp. {ExpirationDate.ToString("dd.MM.yy")}, Vol. - {Volume.ToString("0.##")}, Alcohol - {alcohol}";
+                $"({Category}) {Name} ${Price:0.00}, Exp. {ExpirationDate:dd.MM.yy}, Vol. - {Volume:0.##}, Alcohol - {alcohol}";
         }
     }
 }
