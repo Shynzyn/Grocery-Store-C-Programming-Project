@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GroceryStore.Constants\GroceryStore.Constants.csproj" />
+  </ItemGroup>
+
 </Project>

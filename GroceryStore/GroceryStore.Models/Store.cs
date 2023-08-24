@@ -1,63 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using util = Utility.Utility;
+﻿using util = GroceryStore.Utils.Utility;
 
-namespace GroceryStore.Models
+namespace GroceryStore.Models;
 
+public static class Store
 {
-    public class Store
+    public static Customer[] Customers = Array.Empty<Customer>();
+
+    public static void AddCustomer(string firstName, string lastName, int age, char sex, bool hasDiscountCard,
+        float personalDiscount = 0.05f)
     {
-        private int _customerCount = 0;
-        public Customer[] Customers = new Customer[0];
-        public Product[] Products = new Product[100];
+        var newCustomer = new Customer(firstName, lastName, age, sex, hasDiscountCard, personalDiscount);
+        Array.Resize(ref Customers, Customers.Length + 1);
+        Customers[^1] = newCustomer;
+    }
 
-        public void AddCustomer(string firstName, string lastName, int age, char sex, bool hasDiscountCard, float personalDiscount = 0.05f)
+    public static void AddCustomer(Customer customer)
+    {
+        Array.Resize(ref Customers, Customers.Length + 1);
+        Customers[^1] = customer;
+    }
+
+    public static void PrintCustomersInformation()
+    {
+        var header = new string('-', 180) + "\n";
+        if (Customers.Length <= 0)
         {
-            if (_customerCount >= Customers.Length)
+            Console.WriteLine("Store is empty");
+        }
+        else
+        {
+            var headerInfo = $"| {util.CenterAlign("Full Name", 30)} | {util.CenterAlign("Age", 3)} | {util.CenterAlign("Sex", 5)} |" +
+                             $" {util.CenterAlign("Has Discount Card", 5)} | {util.CenterAlign("Personal Discount", 8)} | {util.CenterAlign("Cart", 89)} |\n";
+            var emptyLine = $"|{util.CenterAlign("", 32)}|{util.CenterAlign("", 5)}|{util.CenterAlign("", 7)}|{util.CenterAlign("", 19)}|{util.CenterAlign("", 19)}|";
+            Console.Write(header + headerInfo);
+            foreach (var customer in Customers)
             {
-                Array.Resize(ref Customers, _customerCount + 1);
+                Console.WriteLine(customer);
             }
-            Customer newCustomer = new Customer(firstName, lastName, age, sex, hasDiscountCard, personalDiscount);
-            Customers[_customerCount] = newCustomer;
-            _customerCount++;
         }
 
-        public void AddCustomer(Customer customer)
-        {
-            if (_customerCount >= Customers.Length)
-            {
-                Array.Resize(ref Customers, _customerCount + 1);
-            }
-
-            Customers[_customerCount] = customer;
-            _customerCount++;
-        }
-
-        public void PrintCustomersInformation()
-        {
-            if (Customers.Length <= 0)
-            {
-                Console.WriteLine("Store is empty");
-            }
-            else
-            {
-                string header = "----------------------------------------------------------------------------------------" +
-                    "----------------------------------------------------------\n";
-                string headerInfo = $"| {util.CenterAlign("Full Name", 30)} | {util.CenterAlign("Age", 3)} | {util.CenterAlign("Sex", 5)} |" +
-                    $" {util.CenterAlign("Has Discount Card", 5)} | {util.CenterAlign("Personal Discount", 8)} | {util.CenterAlign("Cart", 55)} |\n";
-
-                string customerString = "";
-
-                foreach (var customer in Customers)
-                {
-                    customerString += customer.GetCustomerInfo() + "\n";
-                }
-                Console.WriteLine(header + headerInfo + customerString);
-            }
-        }
+        Console.WriteLine(header);
     }
 }
