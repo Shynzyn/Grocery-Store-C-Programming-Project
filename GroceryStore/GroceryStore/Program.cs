@@ -1,13 +1,12 @@
 ﻿using GroceryStore.Models;
-using GroceryStore.Constants;
-using GroceryStore.Models.ProductClasses;
+using GroceryStore.Models.Products;
 
 // Customers
-Customer cust1 = new Customer("John", "Doe", 22, 'm', true, 0.02f);
-Customer cust2 = new Customer("Sam", "Brooks", 67, 'f', true, 0.12f);
-Customer cust3 = new Customer("Alois", "Winter", 15, 'm', false);
-Customer cust4 = new Customer("Ann", "Siemens", 44, 'f', false, 0.09f);
-Customer cust5 = new Customer("Peter", "Parker", 9, 'm', false);
+var cust1 = new Customer("John", "Doe", 22, 'm', true, 0.02f);
+var cust2 = new Customer("Sam", "Brooks", 67, 'f', true, 0.12f);
+var cust3 = new Customer("Alois", "Winter", 15, 'm', false);
+var cust4 = new Customer("Ann", "Siemens", 44, 'f', false, 0.09f);
+var cust5 = new Customer("Peter", "Parker", 9, 'm', false);
 
 // Products
 

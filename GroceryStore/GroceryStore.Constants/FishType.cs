@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace GroceryStore.Constants;
 
-namespace GroceryStore.Constants
+public enum FishType
 {
-    public enum FishType
-    {
-        Sea,
-        Freshwater,
-        Ocean,
-    }
+    Sea,
+    Freshwater,
+    Ocean
 }
