@@ -9,7 +9,7 @@ public class Customer
     private float _personalDiscount;
     private char _sex;
 
-    public ProductWrapper[] Cart = Array.Empty<ProductWrapper>();
+    public List<ProductWrapper> Cart = new();
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public int Age { get; set; }
@@ -65,7 +65,7 @@ public class Customer
         var card = hasDiscountCard ? "YES" : "NO";
         var header = new string('-', 180) + "\n";
 
-        if (Cart.Length <= 0)
+        if (Cart.Count <= 0)
         {
             var emptyCart = "EMPTY";
             var info = $"| {util.CenterAlign(FullName, 30)} | {util.CenterAlign(Age.ToString(), 3)} | {util.CenterAlign(Sex.ToString(), 5)} |" +
@@ -93,10 +93,7 @@ public class Customer
 
     public void AddProductToCart(Product product, int amount)
     {
-        if (Cart.Length <= _cartCount) Array.Resize(ref Cart, _cartCount + 1);
-
-        Cart[_cartCount] = new ProductWrapper(product, amount);
-        _cartCount++;
+        Cart.Add(new ProductWrapper(product, amount));
         Console.WriteLine($"Product: {product} was added to {FullName}'s cart.");
     }
 }

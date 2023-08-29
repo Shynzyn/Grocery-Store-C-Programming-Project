@@ -12,7 +12,7 @@ public abstract class Product
     public string Name { get; set; }
     public string Category { get; set; }
     public double Price { get; set; }
-    protected DateTime ExpirationDate { get; }
+    public DateTime ExpirationDate { get; }
 
     public override string ToString()
     {
