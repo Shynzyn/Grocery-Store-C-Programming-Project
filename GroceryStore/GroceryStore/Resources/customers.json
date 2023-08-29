@@ -1,0 +1,42 @@
+{
+  "Cart": [
+    {
+      "Product": {
+        "IsAlcohol": false,
+        "Volume": 1.0,
+        "Name": "Coca-Cola",
+        "Category": 4,
+        "Price": 1.1200000047683716,
+        "ExpirationDate": "2023-09-28T17:26:23.2559323+03:00"
+      },
+      "Amount": 2
+    },
+    {
+      "Product": {
+        "FishType": 1,
+        "Name": "Norway Herring",
+        "Category": 2,
+        "Price": 4.550000190734863,
+        "ExpirationDate": "2023-08-30T17:26:23.2577348+03:00"
+      },
+      "Amount": 1
+    },
+    {
+      "Product": {
+        "Weight": 0.5,
+        "Name": "Tomatoes",
+        "Category": 0,
+        "Price": 0.9900000095367432,
+        "ExpirationDate": "2023-09-02T17:26:23.2576696+03:00"
+      },
+      "Amount": 7
+    }
+  ],
+  "FirstName": "John",
+  "LastName": "Doe",
+  "Age": 22,
+  "Sex": "M",
+  "hasDiscountCard": true,
+  "PersonalDiscount": 0.02,
+  "FullName": "John Doe"
+}

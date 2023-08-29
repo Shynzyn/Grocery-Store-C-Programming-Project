@@ -1,10 +1,24 @@
 ﻿namespace GroceryStore.Constants;
 
-public class ProductCategories
+public enum ProductCategories
 {
-    public const string FruitsAndVegetables = "Fruits & Vegetables";
-    public const string Meat = "Meat";
-    public const string Fish = "Fish";
-    public const string Snacks = "Snacks";
-    public const string Drinks = "Drinks";
+    FruitsAndVegetables,
+    Meat,
+    Fish,
+    Snacks,
+    Drinks,
+}
+
+public static class ProductCategoriesExtensions
+{
+    public static string Description(this ProductCategories category)
+    {
+        switch (category)
+        {
+            case ProductCategories.FruitsAndVegetables:
+                return "Fruits & Vegetables";
+            default:
+                return category.ToString();
+        }
+    }
 }

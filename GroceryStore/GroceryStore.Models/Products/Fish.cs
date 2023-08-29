@@ -15,6 +15,6 @@ public class Fish : Product
 
     public override string ToString()
     {
-        return $"({Category}) {Name} ${Price:0.00}, Exp. {ExpirationDate:dd.MM.yy}, {FishType}";
+        return $"({Category.Description()}) {Name} ${Price:0.00}, Exp. {ExpirationDate:dd.MM.yy}, {FishType}";
     }
 }
