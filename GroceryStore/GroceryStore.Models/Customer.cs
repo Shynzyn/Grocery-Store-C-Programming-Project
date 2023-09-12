@@ -1,6 +1,8 @@
 ﻿using System.Linq.Expressions;
 using GroceryStore.Core.Exceptions;
+using GroceryStore.Core.Helpers;
 using GroceryStore.Models.Products;
+using Newtonsoft.Json;
 using util = GroceryStore.Utils.Utility;
 
 namespace GroceryStore.Models;
@@ -28,7 +30,13 @@ public class Customer
 
     public string FullName => $"{FirstName} {LastName}";
 
-    public List<ProductWrapper> Cart = new();
+    private static JsonSerializerSettings customSettings = new JsonSerializerSettings
+    {
+        Formatting = Formatting.Indented,
+        Converters = { new ProductConverter() }
+    };
+
+    public List<ProductWrapper> Cart = JsonHelper.LoadFromJson<ProductWrapper>("customers.json", customSettings).ToList();
 
     public Customer(string firstName, string lastName, int age, char sex, bool hasDiscountCard,
         float personalDiscount = 0.05f)

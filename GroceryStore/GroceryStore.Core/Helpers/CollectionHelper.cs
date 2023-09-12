@@ -12,7 +12,13 @@ namespace GroceryStore.Core.Helpers
         public static void AddCustomer<T>(this ICollection<T> collection, T customer)
         {
             collection.Add(customer);
-            JsonHelper.SaveToJson(customer, "customers.json");
+            JsonHelper.SaveToJson(collection, "customers.json");
+        }
+
+        public static void AddProduct<T>(this ICollection<T> collection, T product)
+        {
+            collection.Add(product);
+            JsonHelper.SaveToJson(collection, "products.json");
         }
     }
 }

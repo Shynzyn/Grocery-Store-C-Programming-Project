@@ -18,48 +18,33 @@ var norwayHerring = new Fish("Norway Herring", 4.55f);
 var chickenNuggets = new Meat("Chicken Nuggets", 4.99);
 var aperol = new Drink("Aperol", 9.99, 0.75f, true);
 
-//cust4.UpdateDiscountCard(false);
-//cust1.ChangeCustomerName("John", "Claus");
+Store.AddProduct(cocaCola);
+Store.AddProduct(tomatoes);
+Store.AddProduct(laysCheese);
+Store.AddProduct(norwayHerring);
+Store.AddProduct(chickenNuggets);
+Store.AddProduct(aperol);
 
 // Assigning Customers to the store
+
+john.AddProductToCart(cocaCola, 2);
+john.AddProductToCart(norwayHerring);
+john.AddProductToCart(tomatoes, 7);
+
+sam.AddProductToCart(chickenNuggets);
+
+alois.AddProductToCart(tomatoes, 3);
+
+ann.AddProductToCart(aperol);
+peter.AddProductToCart(laysCheese, 5);
+peter.AddProductToCart(cocaCola, 2);
+peter.AddProductToCart(aperol);
 
 Store.AddCustomer(john);
 Store.AddCustomer(sam);
 Store.AddCustomer(alois);
 Store.AddCustomer(ann);
 Store.AddCustomer(peter);
-
-Store.Customers["John Doe"].AddProductToCart(cocaCola, 2);
-Store.Customers["John Doe"].AddProductToCart(norwayHerring);
-Store.Customers["John Doe"].AddProductToCart(tomatoes, 7);
-
-Store.Customers["Sam Brooks"].AddProductToCart(chickenNuggets);
-
-Store.Customers["Alois Winter"].AddProductToCart(tomatoes, 3);
-
-Store.Customers["Ann Siemens"].AddProductToCart(aperol);
-
-
-Store.Customers["Peter Parker"].AddProductToCart(laysCheese, 5);
-Store.Customers["Peter Parker"].AddProductToCart(cocaCola, 2);
-Console.WriteLine(tomatoes);
-Console.WriteLine(laysCheese);
-
-
-Store.Customers["Peter Parker"].AddProductToCart(aperol);
 Store.PrintCustomersInformation();
 
 Console.WriteLine();
-
-JsonHelper.SaveToJson(Store.Customers["John Doe"], "customers.json");
-
-
-var settings = new JsonSerializerSettings
-{
-    Formatting = Formatting.Indented,
-    Converters = { new ProductConverter() } // Add the custom converter
-};
-var customer = JsonHelper.LoadFromJson<Customer>("customers.json", settings);
-
-
-Console.WriteLine(customer.Age);

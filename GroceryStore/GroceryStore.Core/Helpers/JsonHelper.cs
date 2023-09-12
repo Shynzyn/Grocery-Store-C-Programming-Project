@@ -1,41 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft;
+﻿using Newtonsoft.Json;
 
 namespace GroceryStore.Core.Helpers
 {
     public class JsonHelper
     {
-        public static void SaveToJson<T>(T obj, string fileName)
+        public static void SaveToJson<T>(ICollection<T> collection, string fileName)
         {
-            string filePath = @"C:\Users\Marcin.Petrulevic\Desktop\Internship\Grocery-Store-C-Programming-Project\GroceryStore\GroceryStore\Resources\" + fileName;
+            string filePath = Path.Combine(@"C:\Users\Marcin.Petrulevic\Desktop\Internship\Grocery-Store-C-Programming-Project\GroceryStore\GroceryStore\Resources", fileName);
             var settings = new JsonSerializerSettings
             {
                 Formatting = Formatting.Indented
             };
 
-            string jsonString = JsonConvert.SerializeObject(obj, settings);
+            // Serialize the collection of objects to JSON.
+            string jsonString = JsonConvert.SerializeObject(collection, settings);
+
+            // Write the JSON data to the file.
             File.WriteAllText(filePath, jsonString);
         }
 
-        public static T LoadFromJson<T>(string fileName, JsonSerializerSettings settings = null)
+        public static ICollection<T> LoadFromJson<T>(string fileName, JsonSerializerSettings settings = null)
         {
-            string filePath = @"C:\Users\Marcin.Petrulevic\Desktop\Internship\Grocery-Store-C-Programming-Project\GroceryStore\GroceryStore\Resources\" + fileName;
+            string filePath = Path.Combine(@"C:\Users\Marcin.Petrulevic\Desktop\Internship\Grocery-Store-C-Programming-Project\GroceryStore\GroceryStore\Resources", fileName);
+
+            if (!File.Exists(filePath))
+            {
+                // If the file does not exist, return an empty collection.
+                return new List<T>();
+            }
+
             string jsonString = File.ReadAllText(filePath);
 
             if (settings == null)
             {
                 // Use default settings if no custom settings are provided
-                return JsonConvert.DeserializeObject<T>(jsonString);
+                return JsonConvert.DeserializeObject<ICollection<T>>(jsonString);
             }
             else
             {
                 // Use custom settings if provided
-                return JsonConvert.DeserializeObject<T>(jsonString, settings);
+                return JsonConvert.DeserializeObject<ICollection<T>>(jsonString, settings);
             }
         }
     }
