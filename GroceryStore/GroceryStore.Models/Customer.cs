@@ -1,15 +1,17 @@
-﻿using GroceryStore.Models.Products;
+﻿using System.Linq.Expressions;
+using GroceryStore.Core.Exceptions;
+using GroceryStore.Core.Helpers;
+using GroceryStore.Models.Products;
+using Newtonsoft.Json;
 using util = GroceryStore.Utils.Utility;
 
 namespace GroceryStore.Models;
 
 public class Customer
 {
-    private int _cartCount;
     private float _personalDiscount;
     private char _sex;
 
-    public ProductWrapper[] Cart = Array.Empty<ProductWrapper>();
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public int Age { get; set; }
@@ -27,6 +29,14 @@ public class Customer
     }
 
     public string FullName => $"{FirstName} {LastName}";
+
+    private static JsonSerializerSettings customSettings = new JsonSerializerSettings
+    {
+        Formatting = Formatting.Indented,
+        Converters = { new ProductConverter() }
+    };
+
+    public List<ProductWrapper> Cart = JsonHelper.LoadFromJson<ProductWrapper>("customers.json", customSettings).ToList();
 
     public Customer(string firstName, string lastName, int age, char sex, bool hasDiscountCard,
         float personalDiscount = 0.05f)
@@ -65,7 +75,7 @@ public class Customer
         var card = hasDiscountCard ? "YES" : "NO";
         var header = new string('-', 180) + "\n";
 
-        if (Cart.Length <= 0)
+        if (Cart.Count <= 0)
         {
             var emptyCart = "EMPTY";
             var info = $"| {util.CenterAlign(FullName, 30)} | {util.CenterAlign(Age.ToString(), 3)} | {util.CenterAlign(Sex.ToString(), 5)} |" +
@@ -75,14 +85,11 @@ public class Customer
         else
         {
             var emptyLine = $"|{util.CenterAlign("", 32)}|{util.CenterAlign("", 5)}|{util.CenterAlign("", 7)}|{util.CenterAlign("", 19)}|{util.CenterAlign("", 19)}";
-            var cartString = "";
-            double sum = 0;
+            var sum = Cart.Sum(item => item.Amount * item.Product.Price);
 
-            foreach (var cartElement in Cart)
-            {
-                sum += cartElement.Amount * cartElement.Product.Price;
-                cartString += $"| {cartElement.Product} - {cartElement.Amount:0.##}x - {cartElement.Amount * cartElement.Product.Price:0.##}$".PadRight(92) + $"|\n{emptyLine}";
-            }
+            var cartString = string.Join("", Cart.Select(cartElement =>
+                $"| {cartElement.Product} - {cartElement.Amount:0.##}x - {cartElement.Amount * cartElement.Product.Price:0.##}$".PadRight(92) +
+                $"|\n{emptyLine}"));
 
             var info = $"| {util.CenterAlign(FullName, 30)} | {util.CenterAlign(Age.ToString(), 3)} | {util.CenterAlign(Sex.ToString(), 5)} |" +
                        $" {util.CenterAlign(card, 17)} | {util.CenterAlign(PersonalDiscount * 100 + "%", 17)} {util.CenterAlign(cartString, 90)}|";
@@ -91,12 +98,30 @@ public class Customer
         }
     }
 
-    public void AddProductToCart(Product product, int amount)
+    public void AddProductToCart<T>(T product, int amount = 1) where T : Product
     {
-        if (Cart.Length <= _cartCount) Array.Resize(ref Cart, _cartCount + 1);
+        try
+        {
+            if (product is Drink drink && drink.IsAlcohol && Age < 18)
+            {
+                throw new UnderAgeException();
+            }
 
-        Cart[_cartCount] = new ProductWrapper(product, amount);
-        _cartCount++;
-        Console.WriteLine($"Product: {product} was added to {FullName}'s cart.");
+            if (product.ExpirationDate < DateTime.Today)
+            {
+                throw new ExpiredProductException();
+            }
+
+            Cart.Add(new ProductWrapper(product, amount));
+            Console.WriteLine($"Product: {product} was added to {FullName}'s cart.");
+        }
+        catch (UnderAgeException ex)
+        {
+            Console.WriteLine($"Customer {FullName} is unable to buy the following products: {product.Name} according to age restrictions");
+        }
+        catch (ExpiredProductException ex)
+        {
+            Console.WriteLine($"Customer {FullName} is unable to buy the following products: {product.Name} according to expiry date {product.ExpirationDate}");
+        }
     }
 }

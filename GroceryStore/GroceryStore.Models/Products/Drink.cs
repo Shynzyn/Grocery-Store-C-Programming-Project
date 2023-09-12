@@ -18,6 +18,6 @@ public class Drink : Product
     public override string ToString()
     {
         var alcohol = IsAlcohol ? "Y" : "N";
-        return $"({Category}) {Name} ${Price:0.00}, Exp. {ExpirationDate:dd.MM.yy}, Vol. - {Volume:0.##}, Alcohol - {alcohol}";
+        return $"({Category.Description()}) {Name} ${Price:0.00}, Exp. {ExpirationDate:dd.MM.yy}, Vol. - {Volume:0.##}, Alcohol - {alcohol}";
     }
 }

@@ -11,6 +11,6 @@ public class Meat : Product
 
     public override string ToString()
     {
-        return $"({Category}) {Name} ${Price:0.00}, Exp. {ExpirationDate:dd.MM.yy}";
+        return $"({Category.Description()}) {Name} ${Price:0.00}, Exp. {ExpirationDate:dd.MM.yy}";
     }
 }

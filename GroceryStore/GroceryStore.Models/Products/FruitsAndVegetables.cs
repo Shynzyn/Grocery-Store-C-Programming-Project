@@ -15,6 +15,6 @@ public class FruitsAndVegetables : Product
 
     public override string ToString()
     {
-        return $"({Category}) {Name} ${Price:0.00}, Exp. {ExpirationDate:dd.MM.yy}, {Weight}kg";
+        return $"({Category.Description()}) {Name} ${Price:0.00}, Exp. {ExpirationDate:dd.MM.yy}, {Weight}kg";
     }
 }
