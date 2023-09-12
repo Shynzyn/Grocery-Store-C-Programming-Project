@@ -7,7 +7,7 @@
         "Name": "Coca-Cola",
         "Category": 4,
         "Price": 1.1200000047683716,
-        "ExpirationDate": "2023-09-28T17:26:23.2559323+03:00"
+        "ExpirationDate": "2023-10-12T09:29:04.0083504+03:00"
       },
       "Amount": 2
     },
@@ -17,7 +17,7 @@
         "Name": "Norway Herring",
         "Category": 2,
         "Price": 4.550000190734863,
-        "ExpirationDate": "2023-08-30T17:26:23.2577348+03:00"
+        "ExpirationDate": "2023-09-13T09:29:04.0102104+03:00"
       },
       "Amount": 1
     },
@@ -27,7 +27,7 @@
         "Name": "Tomatoes",
         "Category": 0,
         "Price": 0.9900000095367432,
-        "ExpirationDate": "2023-09-02T17:26:23.2576696+03:00"
+        "ExpirationDate": "2023-09-16T09:29:04.0101483+03:00"
       },
       "Amount": 7
     }

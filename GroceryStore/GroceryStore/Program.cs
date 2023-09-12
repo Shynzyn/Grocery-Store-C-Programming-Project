@@ -1,6 +1,7 @@
 ﻿using GroceryStore.Core.Helpers;
 using GroceryStore.Models;
 using GroceryStore.Models.Products;
+using Newtonsoft.Json;
 
 // Customers
 var john = new Customer("John", "Doe", 22, 'm', true, 0.02f);
@@ -52,7 +53,13 @@ Console.WriteLine();
 
 JsonHelper.SaveToJson(Store.Customers["John Doe"], "customers.json");
 
-var newobj = JsonHelper.LoadFromJson<Customer>("customers.json");
+
+var settings = new JsonSerializerSettings
+{
+    Formatting = Formatting.Indented,
+    Converters = { new ProductConverter() } // Add the custom converter
+};
+var customer = JsonHelper.LoadFromJson<Customer>("customers.json", settings);
 
 
-Console.WriteLine(newobj.Age);
+Console.WriteLine(customer.Age);

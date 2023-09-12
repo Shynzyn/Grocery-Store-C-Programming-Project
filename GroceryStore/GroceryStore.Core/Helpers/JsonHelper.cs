@@ -22,12 +22,21 @@ namespace GroceryStore.Core.Helpers
             File.WriteAllText(filePath, jsonString);
         }
 
-        public static TResult? LoadFromJson<TResult>(string fileName)
+        public static T LoadFromJson<T>(string fileName, JsonSerializerSettings settings = null)
         {
             string filePath = @"C:\Users\Marcin.Petrulevic\Desktop\Internship\Grocery-Store-C-Programming-Project\GroceryStore\GroceryStore\Resources\" + fileName;
             string jsonString = File.ReadAllText(filePath);
-            var obj = JsonConvert.DeserializeObject<TResult>(jsonString);
-            return obj;
+
+            if (settings == null)
+            {
+                // Use default settings if no custom settings are provided
+                return JsonConvert.DeserializeObject<T>(jsonString);
+            }
+            else
+            {
+                // Use custom settings if provided
+                return JsonConvert.DeserializeObject<T>(jsonString, settings);
+            }
         }
     }
 }
